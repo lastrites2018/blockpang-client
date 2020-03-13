@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Container, Image, Button, Menu, Icon } from 'semantic-ui-react';
-import './style.scss';
-import util from '../../util';
-import favicon from '../../assets/img/favicon.ico';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { Container, Image, Button, Menu, Icon } from "semantic-ui-react";
+import "./style.scss";
+import util from "../../util";
+import favicon from "../../assets/img/favicon.ico";
 
 class Navbar extends Component {
   _menuChange = () => {
@@ -18,23 +18,23 @@ class Navbar extends Component {
           <Icon
             name="user"
             style={{
-              marginLeft: 'auto',
-              marginRight: 'auto'
+              marginLeft: "auto",
+              marginRight: "auto"
             }}
           />
         ) : (
           <Image src={userData.provider_pic} avatar />
         )}
-        <span style={{ marginRight: '1.5em' }}>{userData.name}</span>
+        <span style={{ marginRight: "1.5em" }}>{userData.name}</span>
         <Button as={Link} to="/" onClick={this.props.logout} inverted>
           Logout
         </Button>
       </Menu.Item>
     ) : (
       <Menu.Item position="right">
-        <Button as={Link} to="/login" primary>
+        {/* <Button as={Link} to="/login" primary>
           Log in
-        </Button>
+        </Button> */}
       </Menu.Item>
     );
   };
@@ -55,16 +55,16 @@ class Navbar extends Component {
                 className="app-logo"
                 size="mini"
                 src={favicon}
-                style={{ marginRight: '1.5em' }}
+                style={{ marginRight: "1.5em" }}
               />
               BlockPang
             </Menu.Item>
             <Menu.Item as={Link} to="/how-to-play">
               How to Play
             </Menu.Item>
-            <Menu.Item as={Link} to="/leaderboard">
+            {/* <Menu.Item as={Link} to="/leaderboard">
               Leaderboard
-            </Menu.Item>
+            </Menu.Item> */}
             <Menu.Item as={Link} to="/mypage">
               My Page
             </Menu.Item>
@@ -92,16 +92,16 @@ class Navbar extends Component {
                 className="app-logo"
                 size="mini"
                 src={favicon}
-                style={{ marginRight: '1.5em' }}
+                style={{ marginRight: "1.5em" }}
               />
               BlockPang
             </Menu.Item>
             <Menu.Item as={Link} to="/how-to-play">
               How to Play
             </Menu.Item>
-            <Menu.Item as={Link} to="/leaderboard">
+            {/* <Menu.Item as={Link} to="/leaderboard">
               Leaderboard
-            </Menu.Item>
+            </Menu.Item> */}
             {this.props.isAdmin && (
               <Menu.Item as={Link} to="/admin">
                 Admin

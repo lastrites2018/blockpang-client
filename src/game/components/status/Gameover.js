@@ -1,17 +1,17 @@
 /* eslint-disable default-case */
-import React, { Component } from 'react';
-import './style.scss';
-import { Spring } from 'react-spring';
-import PropTypes from 'prop-types';
-import util from '../../../util';
-import { Redirect } from 'react-router-dom';
+import React, { Component } from "react";
+import "./style.scss";
+import { Spring } from "react-spring";
+import PropTypes from "prop-types";
+import util from "../../../util";
+import { Redirect } from "react-router-dom";
 
 const gameoverMessages = {
-  exceedBlockLimit: '',
+  exceedBlockLimit: "",
   // exceedBlockLimit: 'You have too many blocks',
-  missInput: 'You must type the right key',
-  timeover: 'time over',
-  inputSourceKorean: '재시작하려면 영문 자판으로 변환 후 W키를 눌러주세요!'
+  missInput: "You must type the right key",
+  timeover: "time over",
+  inputSourceKorean: "재시작하려면 영문 자판으로 변환 후 W키를 눌러주세요!"
 };
 
 const GameoverMessage = props => {
@@ -29,9 +29,9 @@ class Gameover extends Component {
     this.state = {
       isLoggedIn: false,
       isRedirectLogin: false,
-      walletAddress: '',
-      transferStatus: 'default',
-      transferResultMessage: '',
+      walletAddress: "",
+      transferStatus: "default",
+      transferResultMessage: "",
       transferAmount: 0
     };
   }
@@ -58,13 +58,11 @@ class Gameover extends Component {
 
   _transferResponseMessages(status) {
     switch (status) {
-      case 'default':
-        return 'Requesting transfer...';
-      case 'success':
-        return `Successfully transferred ${
-          this.state.transferAmount
-        } ICX to your wallet`;
-      case 'fail':
+      case "default":
+        return "Requesting transfer...";
+      case "success":
+        return `Successfully transferred ${this.state.transferAmount} ICX to your wallet`;
+      case "fail":
         return this.state.transferResultMessage;
     }
   }
@@ -81,13 +79,13 @@ class Gameover extends Component {
         this.setState({ isLoggedIn: true, walletAddress: userData.wallet });
       } else {
         this.setState({ isLoggedIn: true });
-        localStorage.setItem('previousGameScore', userData.game_score);
+        localStorage.setItem("previousGameScore", userData.game_score);
       }
     } else {
       // user is not logged in
       // save game score to localStorage
       // to give the user when she logs in
-      localStorage.setItem('previousGameScore', userData.game_score);
+      localStorage.setItem("previousGameScore", userData.game_score);
     }
 
     // use setTimeout to give more room between
@@ -96,15 +94,15 @@ class Gameover extends Component {
       setTimeout(async () => {
         const res = await util.requestTransfer(userData.game_score);
         switch (res.transaction_result) {
-          case 'success':
+          case "success":
             this.setState({
-              transferStatus: 'success',
+              transferStatus: "success",
               transferAmount: res.transfer_icx
             });
             break;
-          case 'fail':
+          case "fail":
             this.setState({
-              transferStatus: 'fail',
+              transferStatus: "fail",
               transferResultMessage: res.message
             });
             break;
@@ -117,7 +115,7 @@ class Gameover extends Component {
     const { isRedirectLogin, isLoggedIn, walletAddress } = this.state;
 
     if (isRedirectLogin) {
-      return <Redirect to={'/login'} />;
+      return <Redirect to={"/login"} />;
     }
 
     return isLoggedIn ? (
@@ -145,16 +143,24 @@ class Gameover extends Component {
         </GameoverMessage>
       )
     ) : (
-      <GameoverMessage onClick={this._redirectLogin}>
+      <GameoverMessage>
+        {/* <GameoverMessage onClick={this._redirectLogin}> */}
         <div className="prize">
           You've won <span>{this._animateScore(this.props.score)} </span>
           ICX!
           <br />
-          Log in now to claim your ICX
+          {/* Log in now to claim your ICX */}
+          Sorry, It is Demo, So ICX is not available.
         </div>
         <div className="gameover-message">
-          <div className="flash">Log in to claim your ICX</div>
+          <div className="flash">
+            Press the 'W' key to restart. 데모이기 때문에, ICX는 저장되지
+            않습니다.{" "}
+          </div>
         </div>
+        {/* <div className="gameover-message">
+          <div className="flash">Log in to claim your ICX</div>
+        </div> */}
       </GameoverMessage>
     );
   }
